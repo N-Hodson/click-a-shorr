@@ -3,36 +3,40 @@ package com.example.clickashorr;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.widget.Toast;
 
 import java.util.ResourceBundle;
 
 public class CharacterSprite {
     private Bitmap image;
-    private int x,y;
-    private int xVelocity = 10;
-    private int yVelocity = 20;
-    private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
-    private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
+    public int x, y, w, h;
+    public int yVelocity = 20;
+    public int gravity = 5;
+    public int MAX_Y_VELOCITY = 30;
 
+    //gives me some important informtion
     public CharacterSprite(Bitmap bmp) {
         image = bmp;
         x = 100;
         y = 100;
+        w = image.getWidth();
+        h = image.getHeight();
     }
 
+    //Draws the Shorr
     public void draw(Canvas canvas) {
         canvas.drawBitmap(image, x, y, null);
     }
 
-    public void update(){
-        if(x<0 && y<0){
-            x = screenWidth / 2;
-            y = screenHeight / 2;
-        }else{
-            x += xVelocity;
-            y += yVelocity;
-            if(x>screenWidth-image.getWidth())||
+
+    public void update() {
+        // makes the shorr fall
+        yVelocity += gravity;
+        // stops the Shorr from faling too fast
+        if (yVelocity > MAX_Y_VELOCITY) {
+            yVelocity = MAX_Y_VELOCITY;
         }
+        y += yVelocity;
     }
 
 }

@@ -6,7 +6,7 @@ import android.view.SurfaceHolder;
 public class MainThread extends Thread{
     //A thread is essentially like a parallel fork of code that can run simultaneously alongside the main part of your code.
     // You can have lots of threads running all at once, thereby allowing things to occur simultaneously rather than adhering to a strict sequence.
-    private SurfaceHolder surfaceHolder;
+    private final SurfaceHolder surfaceHolder;
     private GameView gameView;
     private boolean running;
     public static Canvas canvas;
@@ -22,7 +22,6 @@ public class MainThread extends Thread{
     public void run() {
         while (running) {
             canvas = null;
-
             try {
                 canvas = this.surfaceHolder.lockCanvas();
                 synchronized(surfaceHolder) {
